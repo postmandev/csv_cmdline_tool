@@ -1,0 +1,51 @@
+
+
+The purpose of this tool (csv_tool) is to allow a user to manipulate CSV (comma separated) data via command line/terminal by performing various operations (add,subtract,multiply,divide) on specified columns of the loaded CSV data.  Alternatively, a user can join two different datasets to do either an inner or outer join via a shared key.
+
+1) Installation
+
+Unpack the project archive csv_tool.tar.gz with the command: tar xzvf csv_tool.tar.gz
+Then 'cd' into the project directory 'csv_tool', where there should be five files:
+
+    Makefile
+    README
+    main.cpp
+    stocks.csv
+    stocks2.csv
+    utils.h
+
+Now, type 'make' to build the project.  If the project does not compile, it may be necessary to modify the Makefile to use a compiler that is supported on the user's machine.  I have sucessfully compiled this code on MacOS X using llvm-g++.
+
+2) Program Usage
+
+To perform the aforementioned operations on differnet columns, type the following:
+
+./csv_tool --csv=FILENAME.csv --cols=col1,col2 --operator=plus --rows=10
+
+- Possible values for the cols argument include: col0,...coln where n is the number of columns in the CSV file minus 1.
+    Operations can only be done on numeric column values.  Possible opportunity for enhancement might be to check for non-numeric values
+
+- Possible values for the operator argument include: add, sum, subtract, minus, times, multiply, product, divide
+
+- The number of rows to perform operations on is set by --rows where a value of 10 tells the program to perform the specified operation on only the first 10 rows.
+
+Alternatively, to join two datasets together, the following command line arguments are possible:
+
+./csv_tool --tables=FILENAME.csv,FILENAME2.csv --join=inner --on=col0,col0
+
+- Possible values for the --join argument are 'inner' or 'outer'. Note: 'outer' joins are full outer joins.
+
+- The --on argument allows the user to specify which columns to use when matching indices or keys while joining the two tables.  Supported values must include unique numeric keys (e.g., '2010-10-01' would get converted to 20101001).  A possible enhancement might include supporting keys that are unique strings or date objects.
+
+In either case, whether joining datasets or performing column operations, statistics are shown after displaying the result of the manipulation.
+
+When reading in the CSV file, the tool will skip the first row if it contains solely alpha characters.  The assumption being that it's a header line and currently isn't supported.
+
+
+_____
+
+For any further questions, please contact Michael O'Meara at michael.omeara@gmail.com.
+
+
+
+
